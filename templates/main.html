@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nrt pyv4 sandbox</title>
+
+    {% include 'bootstrap_include.html' %}
+    <link rel="stylesheet" href="/static/template_info.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+</head>
+
+
+<body class="bg-light">
+
+
+<div class="container">
+    <table>
+        <tr>
+            <td>Paneles</td>
+            <td>{{ data.ppv }}W ({{ data.ppv1 }} + {{ data.ppv2 }})</td>
+        </tr>
+        <tr>
+            <td>Temperatura Inversor</td>
+            <td>{{ data.temperature }}C</td>
+        </tr>
+        <tr>
+            <td>Batería</td>
+            <td>{{ data.battery_soc }}% ({{ data.battery_temperature }}C)</td>
+        </tr>
+        <tr>
+            <td>Consumo casa</td>
+            <td>{{ data.house_consumption }}W</td>
+        </tr>
+                <tr>
+            <td>Energía de la red</td>
+            <td>{{ data.grid_in_out }}W</td>
+        </tr>
+
+
+    </table>
+
+
+</div>
+
+
+</body>
+</html>
