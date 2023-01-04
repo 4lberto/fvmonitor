@@ -1,3 +1,4 @@
+import datetime
 import logging
 
 import goodwee_provider
@@ -33,6 +34,8 @@ def hello():
 @app.route("/")
 def status():
     data = goodwee_provider.get_runtime_data()
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    data["current_time"] = current_time
 
     return render_template("main.html", data=data)
 
