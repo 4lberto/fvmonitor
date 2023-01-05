@@ -2,6 +2,7 @@ import datetime
 import logging
 
 import goodwee_provider
+from db.db_prov import get_inverter_log_last_log
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)-8s %(message)s',
@@ -33,9 +34,9 @@ def hello():
 
 @app.route("/")
 def status():
-    data = goodwee_provider.get_runtime_data()
+    data = get_inverter_log_last_log()
     current_time = datetime.datetime.now().strftime("%H:%M:%S")
-    data["current_time"] = current_time
+    data["current_time"] = data["t"]
 
     return render_template("main.html", data=data)
 

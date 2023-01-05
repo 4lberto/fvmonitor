@@ -10,9 +10,8 @@ SLEEP_TIME = 8
 SLEEP_TIME_ON_FAIL = 1
 
 if __name__ == '__main__':
-    print("crontab -e and then:")
-    print("*/8 * * * * /home/pi/venv/bin/python /home/pi/Goodwee/loop_insert.py")
     print("Starting loop")
+    print("Call to start_loop_in_background to let it working in the environmment")
     while (True):
 
         # print(json.dumps(asdict(result), indent=4))
