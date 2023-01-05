@@ -3,6 +3,7 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 
 DATABASE_LOCATION = str(Path(__file__).resolve().parent.joinpath("data")) + "/inverter_log.db"
+print("DATABASE_LOCATION: " + DATABASE_LOCATION)
 
 
 @dataclass
