@@ -5,7 +5,6 @@
     <title>Nrt pyv4 sandbox</title>
 
     {% include 'bootstrap_include.html' %}
-    <link rel="stylesheet" href="/static/template_info.css">
     <meta http-equiv="refresh" content="10">
 
 
@@ -20,12 +19,13 @@
     <div class="table-responsive">
         <table class="table">
 
-            <tr  colspan="2">
+            <tr colspan="2">
                 <td>Paneles</td>
             </tr>
 
             <tr>
-                <td>{{ data.ppv }}W ({{ data.ppv1 }} + {{ data.ppv2 }})</td><tr>{{ data.pv1_mode_label }}
+                <td>{{ data.ppv }}W ({{ data.ppv1 }} + {{ data.ppv2 }})</td>
+            <tr>{{ data.pv1_mode_label }}
             </tr>
             <tr>
                 <td>Temperatura Inversor</td>
@@ -35,7 +35,8 @@
                 <td colspan="2">Batería</td>
             </tr>
             <tr>
-                <td>{{ data.battery_soc }}% ({{ data.battery_temperature }}C)</td><td>{{ data.battery_mode_label }}</td>
+                <td>{{ data.battery_soc }}% ({{ data.battery_temperature }}C)</td>
+                <td>{{ data.battery_mode_label }}</td>
             </tr>
             <tr>
                 <td>Consumo casa</td>
@@ -47,6 +48,9 @@
             </tr>
         </table>
     </div>
+    <a href="/" class="btn btn-primary">Actualizar</a>
+    <a href="/json" class="btn btn-primary">JSON</a>
+</div>
 
 
 </body>

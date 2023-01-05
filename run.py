@@ -19,8 +19,7 @@ from flask import Flask, jsonify, render_template
 
 base_prefix = "/api"
 
-app = Flask(__name__, static_url_path='/static',template_folder = 'templates', static_folder = 'static')
-
+app = Flask(__name__, static_url_path='/static', template_folder='templates', static_folder='static')
 
 
 # Api Feeds for clients
@@ -41,3 +40,10 @@ def status():
     return render_template("main.html", data=data)
 
 
+@app.route("/json")
+def status_json():
+    data = get_inverter_log_last_log()
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    data["current_time"] = data["t"]
+
+    return jsonify(data), 200
