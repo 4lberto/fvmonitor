@@ -1,4 +1,5 @@
 import json
+import logging
 import time
 from dataclasses import asdict
 
@@ -11,7 +12,7 @@ SLEEP_TIME_ON_FAIL = 1
 if __name__ == '__main__':
     print("crontab -e and then:")
     print("*/8 * * * * /home/pi/venv/bin/python /home/pi/Goodwee/loop_insert.py")
-    print ("Starting loop")
+    print("Starting loop")
     while (True):
 
         # print(json.dumps(asdict(result), indent=4))
@@ -21,6 +22,7 @@ if __name__ == '__main__':
             print(f"Inserted: {result}")
 
             time.sleep(SLEEP_TIME)
-        except:
-            print("Error while reading / inserting data. Retrying in 1 second")
+        except Exception as e:
+
+            logging.error("Error while reading / inserting data. Retrying in 1 second", exc_info=True)
             time.sleep(SLEEP_TIME_ON_FAIL)
