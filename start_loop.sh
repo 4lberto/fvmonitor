@@ -2,6 +2,6 @@
 
 
 echo "*** starting loop"
-pipenv run python loop_insert
+pipenv run python loop_insert.py
 
 
