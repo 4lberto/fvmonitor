@@ -137,6 +137,7 @@ def __create_table():
 
 
 def insert_inverter_log(inverter_log: InverterLog):
+    __create_table()
     conn = sqlite3.connect(DATABASE_LOCATION)
     c = conn.cursor()
     c.execute("""INSERT INTO inverter_log (
