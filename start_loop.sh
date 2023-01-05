@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-echo "*** starting loop"
+echo "*** Starting loop. Use cron better"
 pipenv run python loop_insert.py
 
 
