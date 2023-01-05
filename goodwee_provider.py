@@ -2,8 +2,11 @@ import asyncio
 import json
 import threading
 import time
+from dataclasses import asdict
 
 import goodwe
+
+from db.db_prov import InverterLog
 
 
 async def __get_runtime_data():
@@ -27,16 +30,23 @@ async def __get_runtime_data():
     return runtime_data
 
 
-def get_runtime_data():
+def get_runtime_data() -> dict:
     asyncio.set_event_loop(asyncio.SelectorEventLoop())
     loop = asyncio.get_event_loop()
     result = loop.run_until_complete(__get_runtime_data())
     return result
 
 
+def get_runtime_data_as_dataclass()-> InverterLog:
+    data_as_dict = get_runtime_data()
+    data_as_dataclass = InverterLog(**data_as_dict)
+    return data_as_dataclass
+
+
+
 if __name__ == '__main__':
     while (True):
-        result = get_runtime_data()
-        print(json.dumps(result, indent=4))
+        result = get_runtime_data_as_dataclass()
+        print(json.dumps(asdict(result), indent=4))
 
         time.sleep(1)

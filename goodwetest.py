@@ -10,11 +10,22 @@ async def get_runtime_data():
 
     for sensor in inverter.sensors():
         if sensor.id_ in runtime_data:
-            print(f"{sensor.id_}: \t\t {sensor.name} = {runtime_data[sensor.id_]} {sensor.unit}")
+            # print(f"{sensor.id_}: \t\t {sensor.name} = {runtime_data[sensor.id_]} {sensor.unit}")
+
+            try:
+                runtime_data[sensor.id_] = float(runtime_data[sensor.id_])
+                the_type = "REAL"  # REAL
+            except:
+                try:
+                    runtime_data[sensor.id_] = int(runtime_data[sensor.id_])
+                    the_type = "INTEGER"  # INTEGER
+                except:
+                    the_type = "TEXT"
+
+            print(f":{sensor.id_},")
 
 
 asyncio.run(get_runtime_data())
 
 if __name__ == '__main__':
     asyncio.run(get_runtime_data())
-
