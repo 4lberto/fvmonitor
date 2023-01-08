@@ -10,6 +10,7 @@ def dict_factory(cursor, row):
     fields = [column[0] for column in cursor.description]
     return {key: value for key, value in zip(fields, row)}
 
+
 @dataclass
 class InverterLog:
     vpv1: float
@@ -279,12 +280,23 @@ def get_inverter_log():
     conn.close()
     return rows
 
+
 def get_inverter_log_last_log():
     conn = sqlite3.connect(DATABASE_LOCATION)
     conn.row_factory = dict_factory
     c = conn.cursor()
     c.execute("SELECT * FROM inverter_log ORDER BY t DESC LIMIT 1")
     rows = c.fetchone()
+    conn.close()
+    return rows
+
+
+def get_inverter_log_last_log_limit(limit:int = 200) -> list:
+    conn = sqlite3.connect(DATABASE_LOCATION)
+    conn.row_factory = dict_factory
+    c = conn.cursor()
+    c.execute(f"SELECT * FROM inverter_log ORDER BY t DESC LIMIT {limit}")
+    rows = c.fetchall()
     conn.close()
     return rows
 

@@ -2,7 +2,7 @@ import datetime
 import logging
 
 import goodwee_provider
-from db.db_prov import get_inverter_log_last_log
+from db.db_prov import get_inverter_log_last_log, get_inverter_log_last_log_limit
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)-8s %(message)s',
@@ -47,3 +47,14 @@ def status_json():
     data["current_time"] = data["t"]
 
     return jsonify(data), 200
+
+
+@app.route("/json200")
+def status_json200():
+    data = get_inverter_log_last_log_limit(5000)
+    data = [{"x": row["t"], "y": row["house_consumption"]} for row in data]
+
+
+    serie  = {"serie": data}
+
+    return jsonify(serie), 200

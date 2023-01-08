@@ -1,0 +1,39 @@
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+
+    $(function () {
+        console.log("ready!");
+
+
+        var options = {
+            chart: {
+                type: 'line'
+            },
+            series: []
+            //,
+        //xaxis: {
+        //        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+        //    }
+        }
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+        chart.render();
+
+
+        var url = 'http://localhost/json200';
+
+        $.getJSON(url, function (response) {
+            console.log("Calling to updateSeries");
+
+            chart.updateSeries([{
+                name: 'serie',
+                data: response.serie
+            }])
+        });
+
+    });
+</script>

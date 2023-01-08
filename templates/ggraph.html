@@ -1,0 +1,52 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages': ['line']});
+    google.charts.setOnLoadCallback(initialize);
+
+
+    function initialize() {
+        var opts = {sendMethod: 'auto'};
+        // Replace the data source URL on next line with your data source URL.
+        var query = new google.visualization.Query('http://localhost/csv', opts);
+
+        // Optional request to return only column C and the sum of column B, grouped by C members.
+        // Send the query with a callback function.
+        query.send(handleQueryResponse);
+    }
+
+    function handleQueryResponse(response) {
+
+        console.log("In the handleQueryResponse function");
+
+        if (response.isError()) {
+            alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+            return;
+        }
+
+        var data = response.getDataTable();
+
+
+
+
+        var options = {
+            chart: {
+                title: 'Box Office Earnings in First Two Weeks of Opening',
+                subtitle: 'in millions of dollars (USD)'
+            },
+            width: 900,
+            height: 500,
+            axes: {
+                x: {
+                    0: {side: 'top'}
+                }
+            }
+        };
+
+        var chart = new google.charts.Line(document.getElementById('chart_div'));
+
+        chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+
+
+
+</script>
