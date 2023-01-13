@@ -1,4 +1,5 @@
 import sqlite3
+import time
 from dataclasses import dataclass, asdict
 from pathlib import Path
 
@@ -142,11 +143,25 @@ def __create_table():
     print("Database table inverter_log created")
 
 
+def __alter_table():
+    print("DATABASE_LOCATION: " + DATABASE_LOCATION)
+    conn = sqlite3.connect(DATABASE_LOCATION)
+    c = conn.cursor()
+    c.execute('''ALTER TABLE inverter_log ADD tunix INTEGER;''')
+    #c.execute('''UPDATE inverter_log set tunix = UNIXEPOCH(t);''')
+    c.execute('''CREATE INDEX inverter_log_tunix_IDX ON inverter_log (tunix);''')
+    conn.commit()
+    conn.close()
+    print("Database table inverter_log updated")
+
+
 def insert_inverter_log(inverter_log: InverterLog):
     __create_table()
     conn = sqlite3.connect(DATABASE_LOCATION)
     c = conn.cursor()
-    c.execute("""INSERT INTO inverter_log (
+    data_to_insert = asdict(inverter_log)
+    data_to_insert["tunix"] = round(time.time())
+    c.execute("""INSERT INTO inverter_log (tunix,
     vpv1,
 ipv1,
 ppv1,
@@ -206,6 +221,7 @@ diagnose_result_label,
 house_consumption
 
     ) VALUES (
+    :tnuix,
 :vpv1,
 :ipv1,
 :ppv1,
@@ -266,7 +282,7 @@ house_consumption
     
     
     )""",
-              asdict(inverter_log))
+              data_to_insert)
     conn.commit()
     conn.close()
 
@@ -291,7 +307,7 @@ def get_inverter_log_last_log():
     return rows
 
 
-def get_inverter_log_last_log_limit(limit:int = 200) -> list:
+def get_inverter_log_last_log_limit(limit: int = 200) -> list:
     conn = sqlite3.connect(DATABASE_LOCATION)
     conn.row_factory = dict_factory
     c = conn.cursor()
@@ -302,6 +318,7 @@ def get_inverter_log_last_log_limit(limit:int = 200) -> list:
 
 
 if __name__ == '__main__':
-    __create_table()
+    # __create_table()
+    __alter_table()
     result = get_inverter_log_last_log()
     print(result)
