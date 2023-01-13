@@ -149,7 +149,7 @@ def __alter_table():
     c = conn.cursor()
     c.execute('''ALTER TABLE inverter_log ADD tunix INTEGER;''')
     #c.execute('''UPDATE inverter_log set tunix = UNIXEPOCH(t);''')
-    c.execute('''CREATE INDEX inverter_log_tunix_IDX ON inverter_log (tunix);''')
+    #c.execute('''CREATE INDEX inverter_log_tunix_IDX ON inverter_log (tunix);''')
     conn.commit()
     conn.close()
     print("Database table inverter_log updated")
@@ -221,7 +221,7 @@ diagnose_result_label,
 house_consumption
 
     ) VALUES (
-    :tnuix,
+    :tunix,
 :vpv1,
 :ipv1,
 :ppv1,
