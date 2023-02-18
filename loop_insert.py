@@ -6,8 +6,8 @@ from dataclasses import asdict
 from db.db_prov import insert_inverter_log
 from goodwee_provider import get_runtime_data_as_dataclass
 
-SLEEP_TIME = 8
-SLEEP_TIME_ON_FAIL = 1
+SLEEP_TIME = 15
+SLEEP_TIME_ON_FAIL = 15
 
 if __name__ == '__main__':
     print("Starting loop")
